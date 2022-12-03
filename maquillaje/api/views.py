@@ -13,7 +13,8 @@ class Persona(APIView):
     def post(self,request):
         data = PersonSerializers(data=request.data)
         if not data.is_valid():
-            return Response({"error":True,"message":"Json mal formado"})
-        # return Response({"message":"Mi nombre es Isaias"})
+            return Response({"error":True,"message":data.error_messages})
+        return Response({"message":f"Mi nombre es {data.validated_data.get('name')}"})
     def get(self,request):
         pass
+    
